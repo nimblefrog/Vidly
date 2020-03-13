@@ -3,31 +3,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Vidly.DAL;
 using Vidly.Models;
 using Vidly.ViewModel;
+using System.Data.Entity;
 
 namespace Vidly.Controllers
 {
     public class CustomersController : Controller
     {
+        private ApplicationDbContext _context;
+
+        public CustomersController()
+        {
+            _context = new ApplicationDbContext();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
+
         // GET: Customers
         public ActionResult Index()
         {
-            return View(GetCustomers());
+            var customers = _context.Customers.Include(c => c.MembershipType).ToList();
+            return View(customers);
         }
 
         public ActionResult Details(int id)
         {
-            var customer = GetCustomers().SingleOrDefault(x => x.Id == id);
-            return View(customer);
-        }
+            var customer = _context.Customers.SingleOrDefault(x => x.Id == id);
 
-        private IEnumerable<Customer> GetCustomers()
-        {
-            return new List<Customer> {
-                new Customer { Name = "John Smith", Id=1},
-                new Customer { Name = "Mary Williams", Id=2}
-            };
+            if (customer == null)
+                return HttpNotFound();
+
+            return View(customer);
         }
     }
 }
