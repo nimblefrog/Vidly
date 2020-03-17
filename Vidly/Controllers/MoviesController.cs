@@ -88,11 +88,5 @@ namespace Vidly.Controllers
 
             return View(moive);
         }
-
-        //Building Forms
-        public ActionResult New()
-        {
-            return View();
-        }
     }
 }

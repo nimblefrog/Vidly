@@ -40,5 +40,11 @@ namespace Vidly.Controllers
 
             return View(customer);
         }
+
+        //Building Form
+        public ActionResult New()
+        {
+            return View();
+        }
     }
 }
