@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using Vidly.Models;
 using Vidly.ViewModel;
+using Vidly.DAL;
+using System.Data.Entity;
 
 namespace Vidly.Controllers
 {
@@ -42,21 +44,55 @@ namespace Vidly.Controllers
             return Content("id = " + id);
         }
 
-        public ActionResult Index(int? pageIndex, string sortBy)
-        {
-            if (!pageIndex.HasValue)
-                pageIndex = 1;
+        //public ActionResult Index(int? pageIndex, string sortBy)
+        //{
+        //    if (!pageIndex.HasValue)
+        //        pageIndex = 1;
 
-            if (String.IsNullOrWhiteSpace(sortBy))
-                sortBy = "Name";
+        //    if (String.IsNullOrWhiteSpace(sortBy))
+        //        sortBy = "Name";
 
-            return Content(String.Format("pageIndex={0}&sortBy={1}", pageIndex, sortBy));
-        }
+        //    return Content(String.Format("pageIndex={0}&sortBy={1}", pageIndex, sortBy));
+        //}
 
         [Route("movies/released/{year}/{month}")]
         public ActionResult ByReleaseDate(int year, int month)
         {
             return Content(year + "/" + month);
+        }
+
+        //Working with Data
+        private ApplicationDbContext _context;
+        public MoviesController()
+        {
+            _context = new ApplicationDbContext();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
+
+        public ActionResult Index()
+        {
+            var movies = _context.Movies.Include(x => x.GenreType).ToList();
+            return View(movies);
+        }
+
+        public ActionResult Details(int id)
+        {
+            var moive = _context.Movies.Include(x => x.GenreType).SingleOrDefault(x => x.Id == id);
+
+            if (moive == null)
+                return HttpNotFound();
+
+            return View(moive);
+        }
+
+        //Building Forms
+        public ActionResult New()
+        {
+            return View();
         }
     }
 }

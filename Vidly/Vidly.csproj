@@ -162,8 +162,25 @@
     <Compile Include="Migrations\202003130403236_PopulateMembershipType.designer.cs">
       <DependentUpon>202003130403236_PopulateMembershipType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003140539071_AddNameMembershipType.cs" />
+    <Compile Include="Migrations\202003140539071_AddNameMembershipType.designer.cs">
+      <DependentUpon>202003140539071_AddNameMembershipType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003140541196_SetNameValueInMembershipType.cs" />
+    <Compile Include="Migrations\202003140541196_SetNameValueInMembershipType.designer.cs">
+      <DependentUpon>202003140541196_SetNameValueInMembershipType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003140600448_AddBirthdayToCustomer.cs" />
+    <Compile Include="Migrations\202003140600448_AddBirthdayToCustomer.designer.cs">
+      <DependentUpon>202003140600448_AddBirthdayToCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003141535460_AddMovieProperty.cs" />
+    <Compile Include="Migrations\202003141535460_AddMovieProperty.designer.cs">
+      <DependentUpon>202003141535460_AddMovieProperty.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\GenreType.cs" />
     <Compile Include="Models\MembershipType.cs" />
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -210,6 +227,8 @@
     <Content Include="Views\Customers\Index.cshtml" />
     <Content Include="Views\Movies\Index.cshtml" />
     <Content Include="Views\Customers\Details.cshtml" />
+    <Content Include="Views\Movies\Details.cshtml" />
+    <Content Include="Views\Movies\New.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -248,6 +267,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003130403236_PopulateMembershipType.resx">
       <DependentUpon>202003130403236_PopulateMembershipType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003140539071_AddNameMembershipType.resx">
+      <DependentUpon>202003140539071_AddNameMembershipType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003140541196_SetNameValueInMembershipType.resx">
+      <DependentUpon>202003140541196_SetNameValueInMembershipType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003140600448_AddBirthdayToCustomer.resx">
+      <DependentUpon>202003140600448_AddBirthdayToCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003141535460_AddMovieProperty.resx">
+      <DependentUpon>202003141535460_AddMovieProperty.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
