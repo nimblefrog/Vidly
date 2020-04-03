@@ -42,21 +42,49 @@ namespace Vidly.Controllers
         //New
         public ActionResult New()
         {
-            var membershipTypes = _context.MembershipTypes.ToList();
+            var membershipTypes = _context.MembershipTypes;
             var viewModel = new CustomerFormViewModel
             {
+                Customer = new Customer(),
                 MembershipTypes = membershipTypes
             };
             return View("CustomerForm", viewModel);
         }
 
         //確保只有在Post的時候才會觸發這個Function
+        [ValidateAntiForgeryToken]
         [HttpPost] 
-        public ActionResult Create(Customer customer)
+        public ActionResult Save(Customer customer)
         {
-            _context.Customers.Add(customer);
-            _context.SaveChanges();
+            if(!ModelState.IsValid)
+            {
+                var viewModel = new CustomerFormViewModel
+                {
+                    Customer = customer,
+                    MembershipTypes = _context.MembershipTypes.ToList()
+                };
 
+                return View("CustomerForm", viewModel);
+            }
+
+            if (customer.Id == 0)
+                _context.Customers.Add(customer);
+            else
+            {
+                var customerInDb = _context.Customers.Single(c => c.Id == customer.Id);
+
+                //這個方法不好，使用字串不好維護
+                //TryUpdateModel(customerInDb, "", new string[] { "Name", "Email"});
+
+                //更好的方始是使用automap+dto，就不用打那麼多code
+                //Mapper.Map(customer, customerInDb)
+                customerInDb.Name = customer.Name;
+                customerInDb.Brithday = customer.Brithday;
+                customerInDb.MembershipTypeId = customer.MembershipTypeId;
+                customerInDb.IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter;
+            }
+
+            _context.SaveChanges();
             return RedirectToAction("Index", "Customers");
         }
 

@@ -7,6 +7,10 @@
 
 <h2>Customer</h2>
 
+<button>
+    @Html.ActionLink("New Customer", "New", "Customers", null, null)
+</button>
+
 @if (!Model.Any())
 {
     <text>We don't have any customers yet.</text>
