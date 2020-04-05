@@ -17,6 +17,8 @@ namespace Vidly.Models
         public byte GenreTypeId { get; set; }
         public DateTime ReleaseDate { get; set; }
         public DateTime DateAdded { get; set; }
+        [Display(Name="Number in Stock")]
+        [StockRange]
         public byte NumberInStock { get; set; }
     }
 }
