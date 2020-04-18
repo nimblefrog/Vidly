@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@if (Model.Movie == null)
+@if (Model.Id == 0)
 {
     <h2>New Movie</h2>
 }
@@ -16,29 +16,31 @@ else
 @using (Html.BeginForm("Save", "Movies"))
 {
     <div class="form-group">
-        @Html.LabelFor(x => x.Movie.Name)
-        @Html.TextBoxFor(x => x.Movie.Name, new { @class = "form-control" })
-        @Html.ValidationMessageFor(x => x.Movie.Name)
+        @Html.LabelFor(x => x.Name)
+        @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Name)
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(x => x.Movie.ReleaseDate)
-        @Html.TextBoxFor(x => x.Movie.ReleaseDate, "{0:d MMM yyyy}", new { @class = "form-control" })
-        @Html.ValidationMessageFor(x => x.Movie.ReleaseDate)
+        @Html.LabelFor(x => x.ReleaseDate)
+        @Html.TextBoxFor(x => x.ReleaseDate, "{0:d MMM yyyy}", new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.ReleaseDate)
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(x => x.Movie.GenreTypeId)
-        @Html.DropDownListFor(x => x.Movie.GenreTypeId, new SelectList(Model.GenreTypes, "Id", "Name"), "Select Genre Type", new { @class = "form-control" })
-        @Html.ValidationMessageFor(x => x.Movie.GenreTypeId)
+        @Html.LabelFor(x => x.GenreTypeId)
+        @Html.DropDownListFor(x => x.GenreTypeId, new SelectList(Model.GenreTypes, "Id", "Name"), "Select Genre Type", new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.GenreTypeId)
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(x => x.Movie.NumberInStock)
-        @Html.TextBoxFor(x => x.Movie.NumberInStock, new { @class = "form-control" })
-        @Html.ValidationMessageFor(x => x.Movie.NumberInStock)
+        @Html.LabelFor(x => x.NumberInStock)
+        @Html.TextBoxFor(x => x.NumberInStock, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.NumberInStock)
     </div>
-    @Html.HiddenFor(x => x.Movie.Id)
+
+    @*@Html.Hidden("Movie.Id", (Model.Movie != null) ? Model.Movie.Id : 0) 這個方法也不好，因為更改property name會break*@
+    @Html.HiddenFor(x => x.Id)
     @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-primary">Save</button>
 }
